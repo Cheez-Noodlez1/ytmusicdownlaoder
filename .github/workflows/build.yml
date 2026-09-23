@@ -8,6 +8,15 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      - name: Set up Java Development Kit (JDK)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -22,7 +31,6 @@ jobs:
 
       - name: Configure and Run Buildozer
         env:
-          # This variable forces the workflow to ignore the Node deprecation block
           ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
         run: |
           buildozer init
