@@ -40,7 +40,11 @@ jobs:
           sed -i 's/^#android.permissions =.*/android.permissions = INTERNET,WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE/' buildozer.spec
           sed -i 's/^#android.accept_sdk_license =.*/android.accept_sdk_license = True/' buildozer.spec
           
-          # Fix the AIDL block by pre-accepting licenses through the SDK tools pipeline
+          # Fix the folder layout error by forcing Buildozer to use the correct cmdline-tools structure
+          sed -i 's/^#android.meta_data =.*/android.meta_data =/' buildozer.spec
+          sed -i 's/^#p4a.branch =.*/p4a.branch = master/' buildozer.spec
+          
+          # Pre-accept licenses for the sdkmanager download sequence
           mkdir -p ~/.buildozer/android/platform/android-sdk/licenses
           echo -e "24333f8a63b6825ea9c5514f83c2829b004d1fee\n84831b9409646a918e30573bab4c9c91346d8abd\n504667f4c0de7af1a06de9f4b1727b84351f2910" > ~/.buildozer/android/platform/android-sdk/licenses/android-sdk-license
           
