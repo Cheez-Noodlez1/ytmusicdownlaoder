@@ -22,7 +22,7 @@ jobs:
 
       - name: Configure and Run Buildozer
         env:
-          # This variable allows out-of-date actions to run smoothly on GitHub's updated servers
+          # This variable forces the workflow to ignore the Node deprecation block
           ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
         run: |
           buildozer init
