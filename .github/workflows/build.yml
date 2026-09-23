@@ -14,9 +14,6 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
-
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -25,7 +22,7 @@ jobs:
       - name: Install System Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y libsqlite3-dev lldb lld libssl-dev autoconf automake libtool pkg-config zlib1g-dev libncurses5-dev libgdbm-dev libncursesw5-dev libreadline-dev libpcre3-dev libffi-dev shared-mime-info
+          sudo apt-get install -y libsqlite3-dev lldb lld libssl-dev autoconf automake libtool pkg-config zlib1g-dev libncurses5-dev libgdbm-dev libncursesw5-dev libreadline-dev libpcre3-dev libffi-dev shared-mime-info unzip zip
           pip install --upgrade pip
           pip install buildozer cython pillow
 
@@ -43,7 +40,7 @@ jobs:
           sed -i 's/^#android.permissions =.*/android.permissions = INTERNET,WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE/' buildozer.spec
           sed -i 's/^#android.accept_sdk_license =.*/android.accept_sdk_license = True/' buildozer.spec
           
-          # Execute compile build
+          # Execute compile build - Buildozer will handle downloading the Android SDK internally
           buildozer -v android debug
 
       - name: Upload APK Package
