@@ -3,7 +3,7 @@ on: [push, workflow_dispatch]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -21,6 +21,9 @@ jobs:
           pip install buildozer cython pillow
 
       - name: Configure and Run Buildozer
+        env:
+          # This variable allows out-of-date actions to run smoothly on GitHub's updated servers
+          ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: true
         run: |
           buildozer init
           # Rewrite file configurations automatically
